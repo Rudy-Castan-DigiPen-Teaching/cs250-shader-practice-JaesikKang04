@@ -11,6 +11,7 @@ precision mediump float;
 
 out vec4 FragColor;
 uniform vec2 u_resolution;
+uniform float u_time;
 
 #define PI 3.14159265359
 
@@ -23,10 +24,8 @@ void main()
 {
     vec2 st = gl_FragCoord.xy/u_resolution;
 
-    //float y = pow(st.x,0.5);
-    float y = step(0.9, st.x);
-    y = smoothstep(0.3, 0.6, st.x);
-
+    float y = length(st - vec2(0.5));
+    y = smoothstep(0.2, 0.3, y);
     vec3 color = vec3(y);
 
     float pct = plot(st,y);
