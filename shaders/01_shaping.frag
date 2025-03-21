@@ -20,12 +20,15 @@ float plot(vec2 st, float pct){
   return  smoothstep( pct-0.02, pct, st.y) - smoothstep( pct, pct+0.02, st.y);
 }
 
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 void main()
 {
     vec2 st = gl_FragCoord.xy/u_resolution;
 
-    float y = length(st - vec2(0.5));
-    y = smoothstep(0.2, 0.3, y);
+    float y = noise(st * 10.0);
     vec3 color = vec3(y);
 
     float pct = plot(st,y);
